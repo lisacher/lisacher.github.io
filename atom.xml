@@ -6,7 +6,7 @@
   <link href="https://daisy821.me/atom.xml" rel="self"/>
   
   <link href="https://daisy821.me/"/>
-  <updated>2021-08-05T07:14:30.818Z</updated>
+  <updated>2021-08-18T17:43:21.051Z</updated>
   <id>https://daisy821.me/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>輕鬆部署 Github Page</title>
+    <link href="https://daisy821.me/2021/08/19/%E8%BC%95%E9%AC%86%E9%83%A8%E7%BD%B2-Github-Page/"/>
+    <id>https://daisy821.me/2021/08/19/%E8%BC%95%E9%AC%86%E9%83%A8%E7%BD%B2-Github-Page/</id>
+    <published>2021-08-18T17:42:00.000Z</published>
+    <updated>2021-08-18T17:43:21.051Z</updated>
+    
+    <content type="html"><![CDATA[<p>當網頁工程師最期待的就是把網頁部署到線上！<br>只要前端的網頁是靜態檔案，不需要搭配固定的伺服器，就可以輕鬆把網頁部署在雲端上！</p><h3 id="打包-Vue-檔案">打包 Vue 檔案</h3><p>在終端機輸入：</p><pre><code>$ npm run build</code></pre><p>Vue CLI 就會自動幫我們把所有寫好的 Vue 組件和設定等等一併作打包的動作，打包好了之後，在專案資料夾中，你會看到多了一個 dist 資料夾，裡面放的就是靜態網頁所需的所有檔案</p><span id="more"></span><h3 id="部署到-Github">部署到 Github</h3><p>在此之前，你會需要一個 Github 專案來部署，所以可以先在 github 註冊，<br>在 GitHub 上開一個 repository，而你的網址將會是：</p><pre><code>https://&#123;username&#125;.github.io/&#123;repository-name&#125;</code></pre><p>接下來我們可以把打包好的 Vue 檔案推上 master 分支就可以顯示了，但是每次部署前都需要先執行 npm run build 然後要手動 push 到 GitHub 上<br>步驟真的很（繁瑣），所以就有了讓工程師（偷懶）的方式！</p><h6 id="在根目錄新增-deploy-sh">在根目錄新增 <a href="http://deploy.sh">deploy.sh</a></h6><p>在專案的根目錄中，要先建立一支部署用的指令檔，取名叫做<strong><a href="http://deploy.sh">deploy.sh</a></strong></p><p>接著在這支檔案中貼上下面的內容：</p><pre><code>#!/usr/bin/env sh# abort on errorsset -e# buildnpm run build# navigate into the build output directorycd dist# if you are deploying to a custom domain# echo 'www.example.com' > CNAMEgit initgit add -Agit commit -m 'deploy'# if you are deploying to https://<USERNAME>.github.io# git push -f https://github.com/<USERNAME>/<USERNAME>.GitHub.io.git master# if you are deploying to https://<USERNAME>.Github.io/<REPO># git push -f https://github.com/<USERNAME>/<REPO>.git master:gh-pagesgit push -f https://github.com/ALPHACamp/forum-front-end-vue.git master:gh-pagescd -</code></pre><h5 id="新增-vue-config-js">新增 vue.config.js</h5><p>因為部署到 GitHub 上時，我們的網址並不是直接在路由的根目錄，而是在 repository 的資料夾內，因此需要告訴 Vue 我們真正檔案所在的路徑，在<strong>根目錄</strong>中新增檔案 <strong>vue.config.js</strong></p><p>接著在裡面貼上這段內容，用以告訴 Vue 實際的檔案位置：</p><pre><code>module.exports = &#123;  publicPath: process.env.NODE_ENV === 'production'    ? '/你的專案名稱/'    : '/'&#125;</code></pre><p>接下來就是部署上 Github 了！</p><h4 id="將檔案部署到-GitHub-上">將檔案部署到 GitHub 上</h4><p>需要在專案資料夾的根目錄透過終端機輸入：</p><pre><code>$ ./deploy.sh</code></pre><p>若執行這個指令時出現 permission denied: ./deploy.sh 的錯誤時，表示沒有執行這個檔案的權限，需要先透過下面的指令讓此檔案可以被執行：</p><pre><code>$ chmod +x ./deploy.sh</code></pre><p>接著一樣在輸入 ./deploy.sh 就可以了<br>成功部署後，在 GitHub 頁面上應該會發現多了一個名為 gh-pages 的分支</p><p>接著到 Github 頁面的 Settings 進行 GitHub Pages 的設定，側邊往下拉會有一個 Pages 的欄位，點進去後，在 Source 的地方選擇 gh-pages</p><p>設定完成後，進到 GitHub Pages 給你的連結，就可以看到剛部署好的網頁囉！</p><p>以後想要部署的話，也只要在終端機輸入 <strong>./deploy.sh</strong> 就可以輕鬆部署了！ 😆</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;當網頁工程師最期待的就是把網頁部署到線上！&lt;br&gt;
+只要前端的網頁是靜態檔案，不需要搭配固定的伺服器，就可以輕鬆把網頁部署在雲端上！&lt;/p&gt;
+&lt;h3 id=&quot;打包-Vue-檔案&quot;&gt;打包 Vue 檔案&lt;/h3&gt;
+&lt;p&gt;在終端機輸入：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ npm run build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Vue CLI 就會自動幫我們把所有寫好的 Vue 組件和設定等等一併作打包的動作，打包好了之後，在專案資料夾中，你會看到多了一個 dist 資料夾，裡面放的就是靜態網頁所需的所有檔案&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="web前端" scheme="https://daisy821.me/categories/web%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="學習記錄" scheme="https://daisy821.me/categories/web%E5%89%8D%E7%AB%AF/%E5%AD%B8%E7%BF%92%E8%A8%98%E9%8C%84/"/>
+    
+    
+    <category term="github" scheme="https://daisy821.me/tags/github/"/>
+    
+    <category term="網頁部署" scheme="https://daisy821.me/tags/%E7%B6%B2%E9%A0%81%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>Markdown常用語法整理</title>
@@ -85,15 +116,15 @@
     
     <category term="限時挑戰" scheme="https://daisy821.me/tags/%E9%99%90%E6%99%82%E6%8C%91%E6%88%B0/"/>
     
-    <category term="HTML" scheme="https://daisy821.me/tags/HTML/"/>
-    
-    <category term="CSS" scheme="https://daisy821.me/tags/CSS/"/>
-    
     <category term="專案" scheme="https://daisy821.me/tags/%E5%B0%88%E6%A1%88/"/>
     
     <category term="Vue" scheme="https://daisy821.me/tags/Vue/"/>
     
     <category term="Javascript" scheme="https://daisy821.me/tags/Javascript/"/>
+    
+    <category term="HTML" scheme="https://daisy821.me/tags/HTML/"/>
+    
+    <category term="CSS" scheme="https://daisy821.me/tags/CSS/"/>
     
   </entry>
   
